@@ -1,3 +1,5 @@
+from os import listdir
+from os.path import isfile, join
 import numpy as np
 import networkx as nx
 from src.dataset.generators.base import Generator
@@ -10,7 +12,7 @@ class MCF7HGenerator(Generator):
         self.num_edges = self.local_config['parameters'].get('num_edges', 500)
         self.num_graphs = self.local_config['parameters'].get('num_graphs', 8)
 
-        
+        self.adj
 
         self.generate_dataset()
 
