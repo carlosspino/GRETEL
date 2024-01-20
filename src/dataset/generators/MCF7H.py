@@ -1,7 +1,6 @@
 import numpy as np
 from src.dataset.generators.base import Generator
 from src.dataset.instances.graph import GraphInstance
-import networkx as nx
 
 class MCF7HGenerator(Generator):
     
@@ -17,9 +16,12 @@ class MCF7HGenerator(Generator):
 
     def generate_dataset(self):
         for i in range(self.num_instances):
-            # Cargar la estructura de adyacencia del grafo desde DS_A.txt
-            adjacency_file_path = f'{self.graph_folder}/DS_A.txt'
-            adj_matrix = np.loadtxt(adjacency_file_path, delimiter=',', dtype=int)
+            try:
+                # Cargar la estructura de adyacencia del grafo desde DS_A.txt
+                adj_matrix = np.loadtxt(f'{self.graph_folder}/DS_A.txt', delimiter=',', dtype=int)
+            except Exception as e:
+                print(f"Error loading the file: {e}")
+                continue  # Si hay un error, pasa a la siguiente iteración
 
             # Crear una instancia de grafo
             graph_instance = GraphInstance(id=i, data=adj_matrix, label=0)
