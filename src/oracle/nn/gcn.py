@@ -1,6 +1,7 @@
+from networkx import adamic_adar_index
 import torch.nn as nn
 from torch_geometric.nn.aggr import MeanAggregation
-
+from torch.optim import Adam
 from src.utils.torch.gcn import GCN
 
 
@@ -22,6 +23,7 @@ class DownstreamGCN(GCN):
         
         self.downstream_layers = self.__init__downstream_layers()
         
+        self.optimizer = Adam(self.parameters(), lr=0.001)
         self.init_weights()
         
     def init_weights(self):
