@@ -6,9 +6,12 @@ from src.dataset.instances.graph import GraphInstance
 class MCF7HGenerator(Generator):
 
     def init(self):
-        self.num_instances = self.local_config['parameters'].get('num_instances', 1000)
-        self.num_nodes_per_instance = self.local_config['parameters'].get('num_nodes_per_instance', 32)
-        self.infinity_cycle_length = self.local_config['parameters'].get('infinity_cycle_length', 6)
+        self.num_node = self.local_config['parameters'].get('num_nodes', 100)
+        self.num_edges = self.local_config['parameters'].get('num_edges', 500)
+        self.num_graphs = self.local_config['parameters'].get('num_graphs', 8)
+
+        
+
         self.generate_dataset()
 
     def get_num_instances(self):
