@@ -32,82 +32,18 @@ class MCF7HGenerator(Generator):
 
 
     def generate_dataset(self):
-        #We want to extract edges from MCF7H_A.txt
-        #Method for reading lines, like a scanner
-        edges = open(self.edg_file_path,'r').readLines()
-        arcs = []
+        g = {}
 
-        for edges in arcs:
-            #We split each node_id by a , and then another line
-            edges_list = edges.split(',')
-            #We add to the list 
-            arcs.append((int(edges[0].strip)),int(edges[1].strip()))
-    
+        for k in np.arange(1, 27770):
+            g[k] = np.array([]).reshape([-1,2])
 
-        #The number of a line is a graph_id, its value is the graph class
-        gr_labels = open(self.grph_file_path, 'r').readlines()
-        graphs = []
-        
-        #There is no need of spliting the line because there is just a class value
-        for label in gr_labels:
-            graphs.append(int(label.strip()))
-
-'''
-from os.path import join
-import numpy as np
-from src.dataset.instances.graph import GraphInstance
-from src.dataset.generators.base import Generator
-
-class TuClase(Generator):
-
-    def __init__(self):
-        super().__init__()
-        self.initialize()
-
-    def initialize(self):
-        # Define las rutas de los archivos
-        base_path = self.local_config['parameters']['data_dir']
-        self.arcs_path = join(base_path, 'DS_A.txt')
-        self.graph_indicator_path = join(base_path, 'DS_graph_indicator.txt')
-        self.graph_labels_path = join(base_path, 'DS_graph_labels.txt')
-        self.node_labels_path = join(base_path, 'DS_node_labels.txt')
-        self.edge_labels_path = join(base_path, 'DS_edge_labels.txt')
-
-        # Inicializa tu dataset
-        self.dataset = MyDataset()  # Reemplaza MyDataset con la clase de tu conjunto de datos si es necesario
-
-    def get_num_instances(self):
-        return len(self.dataset.instances)
-
-    def generate_dataset(self):
-        if not len(self.dataset.instances):
-            self.read_adjacency_matrices()
-
-    def read_adjacency_matrices(self):
-        # Lee el archivo DS_A.txt
-        arcs = np.loadtxt(self.arcs_path, delimiter=',', dtype=int)
-        arcs_tuples = [tuple(arc) for arc in arcs]
-
-        # Lee el archivo DS_graph_labels.txt
-        graph_labels = np.loadtxt(self.graph_labels_path, dtype=int)
-
-        # Lee el archivo DS_node_labels.txt (opcional)
-        if self.node_labels_path:
-            node_labels = np.loadtxt(self.node_labels_path, dtype=int)
-            # Usa node_labels según sea necesario
-
-        # Lee el archivo DS_edge_labels.txt (opcional)
-        if self.edge_labels_path:
-            edge_labels = np.loadtxt(self.edge_labels_path, dtype=int)
-            # Usa edge_labels según sea necesario
-
-        # Implementa la lógica para construir tus instancias de grafo
-        # ...
-
-        # Agrega las instancias al conjunto de datos
-        # self.dataset.instances.append(...)
-
-        # Puedes imprimir información adicional si es necesario
-        # print("Número de instancias:", len(self.dataset.instances))
-
-'''
+        g_ind=np.array([])
+        # Read deezer_ego_nets_graph_indicator.txt
+        with open(self.nod_file_path) as graph_indicator_file:
+            lines = graph_indicator_file.readlines()
+            # Iterate through the lines
+            for line in lines:
+                # Get the graph indicator
+                gId=int(line)
+                # Add the graph indicator to the graph_ind array
+                g_ind=np.append(g_ind,gId)
