@@ -12,16 +12,19 @@ class MCF7HGenerator(Generator):
         # Obtén la ruta del directorio actual del script
         script_dir = os.path.dirname(os.path.abspath(__file__))
 
-        # Construye la ruta al directorio del dataset MCF7H dentro del proyecto Gretel
-        base_path = os.path.join(script_dir, 'data', 'datasets', 'MCF7H')
+        # Sube tres niveles en la jerarquía de directorios
+        up_three_levels_dir = os.path.dirname(os.path.dirname(os.path.dirname(script_dir)))
 
-        #PATH to the MCF7H dataset
-        #We save in variables each path
-        self.edg_file_path = os.path.join(base_path, 'MCF7H_A.txt')
-        self.nod_file_path = os.path.join(base_path, 'MCF7H_graph_indicator.txt')
-        self.grph_file_path = os.path.join(base_path, 'MCF7H_graph_labels.txt')
-        self._nlbls_file_path = os.path.join(base_path, 'MCF7H_node_labels.txt')
-        self._edlbls_file_path = os.path.join(base_path, 'MCF7H_edge_labels.txt')
+        # Construye la ruta al directorio del dataset MCF7H dentro del proyecto Gretel
+        base_path = os.path.join(up_three_levels_dir, 'data', 'datasets', 'MCF-7H')
+
+        # PATH to the MCF7H dataset
+        # We save in variables each path
+        self.edg_file_path = os.path.join(base_path, 'MCF-7H_A.txt')
+        self.nod_file_path = os.path.join(base_path, 'MCF-7H_graph_indicator.txt')
+        self.grph_file_path = os.path.join(base_path, 'MCF-7H_graph_labels.txt')
+        self._nlbls_file_path = os.path.join(base_path, 'MCF-7H_node_labels.txt')
+        self._edlbls_file_path = os.path.join(base_path, 'MCF-7H_edge_labels.txt')
 
         #Generate dataset
         self.generate_dataset()
