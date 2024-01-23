@@ -72,3 +72,25 @@ class MCF7HGenerator(Generator):
         for i in np.arange(1, 27770): 
             dt=self.create_adj_mat(g[i])
             self.dataset.instances.append(GraphInstance(id=i, data=dt, label=int(lbs[i-1])))
+
+    def create_adj_mat(self, data):
+        adj = np.asarray(data)
+        
+        min = adj.min()
+        max = adj.max()
+
+        adj = (adj - min).T
+
+        min = min - 1 
+        n_nodes = max - min
+
+        matrix = np.zeros((n_nodes, n_nodes), dtype=np.int32)
+
+        edges=zip(adj[0],adj[1])
+
+        for i in edges:
+            j,k=int(i[0]),int(i[1])
+            matrix[j,k] = 1
+            matrix[k,j] = 1
+
+        return matrix
