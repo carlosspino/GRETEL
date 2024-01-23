@@ -1,5 +1,5 @@
-import numpy as np
 import networkx as nx
+import numpy as np
 from src.dataset.generators.base import Generator
 from src.dataset.instances.graph import GraphInstance
 import os
@@ -32,13 +32,23 @@ class MCF7HGenerator(Generator):
 
 
     def generate_dataset(self):
+        #We create a dictionary called g (graph)
         g = {}
+        #Loop with the number of nodes, we instance an array with 27770 graphs
         for k in np.arange(1, 27770):
             g[k] = np.array([]).reshape([-1,2])
-
+        #We create an array
         g_ind=np.array([])
         with open(self.nod_file_path) as graph_indicator_file:
             lines = graph_indicator_file.readlines()
-            for line in lines:
-                gId=int(line)
+            for i in lines:
+                gId=int(i)
                 g_ind=np.append(g_ind,gId)
+        
+        with open(self.edg_file_path) as A_file:
+            lines = A_file.readlines()
+            for i in lines:
+                tuples = i.split(', ')
+                n1 = int(tuples[0])
+                n2 = int(tuples[1])
+                g[g_ind[n1-1]]=np.vstack([g[g_ind[n1-1]],[n1,n2]])
