@@ -6,6 +6,7 @@ import random
 import numpy as np
 #np.random.seed(0)
 
+
 '''os.environ["OMP_NUM_THREADS"] = "4" # export OMP_NUM_THREADS=1
 os.environ["OPENBLAS_NUM_THREADS"] = "4" # export OPENBLAS_NUM_THREADS=1 
 os.environ["MKL_NUM_THREADS"] = "4" # export MKL_NUM_THREADS=1

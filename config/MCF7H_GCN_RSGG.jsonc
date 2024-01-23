@@ -48,7 +48,7 @@
             }    
         }
     ],
-    "explainers": [{"class": "src.explainer.generative.rsgg.RSGG","parameters":{}}], //Aqui tenemos que cambiar el enlace del explainer que hay que ir cambiando
+    "explainers": [{"class": "src.explainer.generative.gcountergan.GCounteRGAN","parameters":{}}], //Aqui tenemos que cambiar el enlace del explainer que hay que ir cambiando
     "compose_mes" : "config/snippets/default_metrics.json",
     "compose_strs" : "config/snippets/default_store_paths.json"
 }
