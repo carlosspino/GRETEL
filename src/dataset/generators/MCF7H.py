@@ -52,3 +52,19 @@ class MCF7HGenerator(Generator):
                 n1 = int(tuples[0])
                 n2 = int(tuples[1])
                 g[g_ind[n1-1]]=np.vstack([g[g_ind[n1-1]],[n1,n2]])
+
+        lbs = np.array([])
+        	
+            
+        with open(self.grph_file_path) as graphlabel_file:
+            lines = graphlabel_file.readlines()
+            # Iterate through the lines
+            for i in lines:
+                # Get the label
+                l=int(i)
+                # Add the label to the labels array
+                lbs=np.append(lbs,l)
+
+        length_graphs = []
+        for i in np.arange(1,27770):
+            length_graphs.append(g[i].max()-g[i].min()) #El numero de nodos que hay en cada posición de graphs
