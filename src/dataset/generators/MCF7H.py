@@ -38,14 +38,14 @@ class MCF7HGenerator(Generator):
         #We create a dictionary called g (graph)
         g = {}
         #Loop with the number of nodes, we instance an array with 27770 graphs
-        for k in np.arange(1, 27770):
+        for k in np.arange(1, 27771):
             g[k] = np.array([]).reshape([-1,2])
         #We create an array
-        g_ind=np.array([])
+        g_ind = np.array([], dtype=int)
         with open(self.nod_file_path) as graph_indicator_file:
             lines = graph_indicator_file.readlines()
             for i in lines:
-                gId=int(i)
+                gId = int(i.strip())
                 g_ind=np.append(g_ind,gId)
         
         with open(self.edg_file_path) as A_file:
@@ -69,31 +69,34 @@ class MCF7HGenerator(Generator):
                 lbs=np.append(lbs,l)
 
         length_graphs = []
-        for i in np.arange(1,27770):
+        for i in np.arange(1,27771):
             length_graphs.append(g[i].max()-g[i].min()) #El numero de nodos que hay en cada posición de graphs
 
-        for i in np.arange(1, 27770): 
+        for i in np.arange(1, 27771): 
             dt=self.create_adj_mat(g[i])
             self.dataset.instances.append(GraphInstance(id=i, data=dt, label=int(lbs[i-1])))
 
     def create_adj_mat(self, data):
         adj = np.asarray(data)
         
-        min = adj.min()
-        max = adj.max()
+        min_val = adj.min()
+        max_val = adj.max()
 
-        adj = (adj - min).T
+        adj = (adj - min_val).T
 
-        min = min - 1 
-        n_nodes = max - min
+        min_val = min_val - 1 
+        n_nodes = max_val - min_val
+
+        # Explicitly convert n_nodes to an integer
+        n_nodes = int(n_nodes)  # This line fixes the issue
 
         matrix = np.zeros((n_nodes, n_nodes), dtype=np.int32)
 
-        edges=zip(adj[0],adj[1])
+        edges = zip(adj[0], adj[1])
 
         for i in edges:
-            j,k=int(i[0]),int(i[1])
-            matrix[j,k] = 1
-            matrix[k,j] = 1
+            j, k = int(i[0]), int(i[1])
+            matrix[j, k] = 1
+            matrix[k, j] = 1
 
         return matrix
