@@ -58,7 +58,7 @@ class TreeInfinityCycles(Generator):
 
             if has_infinity_cycle:
                 infinity_cycle = self.generate_infinity_cycle()
-                tree = self.join(tree, infinity_cycle)
+                tree = self.join(tree, [infinity_cycle])
                 label = 1
             else: 
                 label = 0
@@ -72,10 +72,10 @@ class TreeInfinityCycles(Generator):
 
 
         local_config['parameters']['num_instances'] = local_config['parameters'].get('num_instances', 1000)
-        local_config['parameters']['num_nodes_per_instance'] = local_config['paramaters'].get('num_nodes_per_instances', 32)
-        local_config['parameters']['infinity_cycle_length'] = local_config['paramaters'].get('infinity_cycle_length', 6)
+        local_config['parameters']['num_nodes_per_instance'] = local_config['parameters'].get('num_nodes_per_instances', 32)
+        local_config['parameters']['infinity_cycle_length'] = local_config['parameters'].get('infinity_cycle_length', 6)
 
-        assert(int(local_config['parameteres']['infinity_cycle_length']) // 2 >= 3)
+        assert(int(local_config['parameters']['infinity_cycle_length']) // 2 >= 3)
 
         
 

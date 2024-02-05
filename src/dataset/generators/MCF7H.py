@@ -37,8 +37,8 @@ class MCF7HGenerator(Generator):
     def generate_dataset(self):
         #We create a dictionary called g (graph)
         g = {}
-        #Loop with the number of nodes, we instance an array with 500 graphs
-        for k in np.arange(1, 500):
+        #Loop with the number of nodes, we instance an array with 27770 graphs
+        for k in np.arange(1, 27770):
             g[k] = np.array([]).reshape([-1,2])
         #We create an array
         g_ind=np.array([])
@@ -69,10 +69,10 @@ class MCF7HGenerator(Generator):
                 lbs=np.append(lbs,l)
 
         length_graphs = []
-        for i in np.arange(1,500):
+        for i in np.arange(1,27770):
             length_graphs.append(g[i].max()-g[i].min()) #El numero de nodos que hay en cada posición de graphs
 
-        for i in np.arange(1, 500): 
+        for i in np.arange(1, 27770): 
             dt=self.create_adj_mat(g[i])
             self.dataset.instances.append(GraphInstance(id=i, data=dt, label=int(lbs[i-1])))
 
