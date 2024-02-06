@@ -72,6 +72,8 @@ class MCF7HGenerator(Generator):
         for i in np.arange(1,27771):
             length_graphs.append(g[i].max()-g[i].min()) #El numero de nodos que hay en cada posición de graphs
 
+        ###
+
         for i in np.arange(1, 27771): 
             dt=self.create_adj_mat(g[i])
             self.dataset.instances.append(GraphInstance(id=i, data=dt, label=int(lbs[i-1])))
