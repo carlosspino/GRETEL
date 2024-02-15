@@ -58,7 +58,6 @@ class MCF7HGenerator(Generator):
 
         lbs = np.array([])
         	
-            
         with open(self.grph_file_path) as graphlabel_file:
             lines = graphlabel_file.readlines()
             # Iterate through the lines
@@ -72,11 +71,23 @@ class MCF7HGenerator(Generator):
         for i in np.arange(1,27771):
             length_graphs.append(g[i].max()-g[i].min()) #El numero de nodos que hay en cada posición de graphs
 
-        ###
+        maxLen=max(length_graphs)
+
+        mean= np.mean(length_graphs)
+
+        cut= mean+(maxLen-mean)/10
+        self.maxNodes=int(cut)
+        cutNumbers=0
 
         for i in np.arange(1, 27771): 
+            graphMax=g[i].max()
+            graphMin=g[i].min()
+            if(graphMax-graphMin>=int(cut)):
+                cutNumbers+=1
+                continue
             dt=self.create_adj_mat(g[i])
-            self.dataset.instances.append(GraphInstance(id=i, data=dt, label=int(lbs[i-1])))
+            self.dataset.instances.append(GraphInstance(id=i, data=dt, label=int(lbs[i - 1])))
+
 
     def create_adj_mat(self, data):
         adj = np.asarray(data)
@@ -90,7 +101,7 @@ class MCF7HGenerator(Generator):
         n_nodes = max_val - min_val
 
         # Explicitly convert n_nodes to an integer
-        n_nodes = int(n_nodes)  # This line fixes the issue
+        n_nodes = int(n_nodes) 
 
         matrix = np.zeros((n_nodes, n_nodes), dtype=np.int32)
 
